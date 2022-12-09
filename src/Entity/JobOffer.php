@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\JobOfferRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
@@ -24,6 +26,14 @@ class JobOffer
 
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $creationDate = null;
+
+    #[ORM\ManyToMany(targetEntity: Applicant::class, inversedBy: 'jobOffers')]
+    private Collection $applicants;
+
+    public function __construct()
+    {
+        $this->applicants = new ArrayCollection();
+    }
 
     public function getId(): ?string
     {
@@ -62,6 +72,30 @@ class JobOffer
     public function setCreationDate(\DateTimeImmutable $creationDate): self
     {
         $this->creationDate = $creationDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Applicant>
+     */
+    public function getApplicants(): Collection
+    {
+        return $this->applicants;
+    }
+
+    public function addApplicant(Applicant $applicant): self
+    {
+        if (!$this->applicants->contains($applicant)) {
+            $this->applicants->add($applicant);
+        }
+
+        return $this;
+    }
+
+    public function removeApplicant(Applicant $applicant): self
+    {
+        $this->applicants->removeElement($applicant);
 
         return $this;
     }
