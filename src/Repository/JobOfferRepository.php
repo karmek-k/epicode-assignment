@@ -39,6 +39,17 @@ class JobOfferRepository extends ServiceEntityRepository
         }
     }
 
+    /** @return JobOffer[] */
+    public function findNotOlderThan(\DateTimeImmutable $date): array
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.creationDate >= :date')
+            ->setParameter('date', $date)
+            ->orderBy('o.creationDate', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return JobOffer[] Returns an array of JobOffer objects
 //     */
