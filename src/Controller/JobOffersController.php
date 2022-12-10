@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\JobOffer;
 use App\Repository\JobOfferRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class JobOffersController extends AbstractController
 {
-    #[Route('/', name: 'app_job_offers')]
+    #[Route('/', name: 'app_joboffers')]
     public function list(Request $req, JobOfferRepository $repo): Response
     {
         // TODO clean up
@@ -23,6 +24,14 @@ class JobOffersController extends AbstractController
 
         return $this->render('job_offers/index.html.twig', [
             'offers' => $repo->findNotOlderThan($date),
+        ]);
+    }
+
+    #[Route('/offer/{offer}', name: 'app_joboffers_view')]
+    public function view(JobOffer $offer): Response
+    {
+        return $this->render('job_offers/view.html.twig', [
+            'offer' => $offer,
         ]);
     }
 }

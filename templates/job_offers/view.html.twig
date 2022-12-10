@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ offer.jobName }}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_joboffers') }}">Go back</a>
+    <h2>{{ offer.jobName }}</h2>
+    <p>Created on: {{ offer.creationDate.format('Y/m/d') }}</p>
+    <p>{{ offer.description }}</p>
+    <a href="#">Apply</a>
+{% endblock %}
