@@ -16,9 +16,9 @@ class JobOffersController extends AbstractController
         // TODO clean up
         $maxDaysAgo = $req->query->get('maxDaysAgo');
         $date = null;
-        if (!empty($maxDaysAgo)) {
+        if (!empty($maxDaysAgo) && !str_starts_with($maxDaysAgo, '-')) {
             $maxDaysAgo = (int) $maxDaysAgo;
-            $date = new \DateTimeImmutable("now - $maxDaysAgo");
+            $date = new \DateTimeImmutable("now - $maxDaysAgo days");
         }
 
         return $this->render('job_offers/index.html.twig', [
