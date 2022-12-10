@@ -6,7 +6,7 @@
 <ul>
     {% for offer in offers %}
         <li>
-            {{ offer.jobName }} - <a href="#">apply</a>
+            {{ offer.jobName }} - <a href="{{ path('app_joboffers_view', { 'offer': offer.id }) }}">details</a>
         </li>
     {% endfor %}
 </ul>
