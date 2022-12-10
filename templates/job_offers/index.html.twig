@@ -3,5 +3,11 @@
 {% block title %}List{% endblock %}
 
 {% block body %}
-
+<ul>
+    {% for offer in offers %}
+        <li>
+            {{ offer.jobName }} - <a href="#">apply</a>
+        </li>
+    {% endfor %}
+</ul>
 {% endblock %}
