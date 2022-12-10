@@ -19,6 +19,13 @@ class AppFixtures extends Fixture
             $manager->persist($offer);
         }
 
+        $staleOffer = new JobOffer();
+        $staleOffer->setJobName('Stale 1 month old offer');
+        $staleOffer->setDescription('dont apply');
+        $staleOffer->setCreationDate(new \DateTimeImmutable('now - 30 days'));
+
+        $manager->persist($staleOffer);
+
         $manager->flush();
     }
 
