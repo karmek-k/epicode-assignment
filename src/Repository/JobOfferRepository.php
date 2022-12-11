@@ -40,15 +40,23 @@ class JobOfferRepository extends ServiceEntityRepository
     }
 
     /** @return JobOffer[] */
-    public function findNotOlderThan(?\DateTimeImmutable $date): array
+    public function findWithListForm(?int $maxDaysAgo = null, ?string $searchQuery = null): array
     {
-        $cb = $this->createQueryBuilder('o');
+        $qb = $this->createQueryBuilder('o');
 
-        if (!empty($date)) {
-            $cb->andWhere('o.creationDate >= :date')->setParameter('date', $date);
+        if (!empty($maxDaysAgo) && $maxDaysAgo > 0) {
+            $date = new \DateTimeImmutable("now - $maxDaysAgo days");
+
+            $qb->andWhere('o.creationDate >= :date')->setParameter('date', $date);
         }
 
-        return $cb
+        if (!empty($searchQuery)) {
+            $qb
+                ->andWhere('LOWER(o.jobName) LIKE LOWER(:query)')
+                ->setParameter('query', '%' . $searchQuery . '%');
+        }
+
+        return $qb
             ->orderBy('o.creationDate', 'DESC')
             ->getQuery()
             ->getResult();

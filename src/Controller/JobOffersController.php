@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\JobOffer;
+use App\Form\JobSearchType;
 use App\Repository\JobOfferRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,16 +15,20 @@ class JobOffersController extends AbstractController
     #[Route('/', name: 'app_joboffers')]
     public function list(Request $req, JobOfferRepository $repo): Response
     {
-        // TODO clean up
-        $maxDaysAgo = $req->query->get('maxDaysAgo');
-        $date = null;
-        if (!empty($maxDaysAgo) && !str_starts_with($maxDaysAgo, '-')) {
-            $maxDaysAgo = (int) $maxDaysAgo;
-            $date = new \DateTimeImmutable("now - $maxDaysAgo days");
+        $form = $this->createForm(JobSearchType::class);
+        $form->handleRequest($req);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $offers = $repo->findWithListForm($data['maxDaysAgo'], $data['searchQuery']);
+        } else {
+            $offers = $repo->findAll();
         }
 
         return $this->render('job_offers/index.html.twig', [
-            'offers' => $repo->findNotOlderThan($date),
+            'form' => $form,
+            'offers' => $offers
         ]);
     }
 
