@@ -3,12 +3,13 @@
 {% block title %}List{% endblock %}
 
 {% block body %}
-{{ form(form) }}
-<ul>
-    {% for offer in offers %}
-        <li>
-            {{ offer.jobName }} - <a href="{{ path('app_joboffers_view', { 'offer': offer.id }) }}">details</a>
-        </li>
-    {% endfor %}
-</ul>
+    {{ form(form) }}
+    <ul>
+        {% for offer in pagination %}
+            <li>
+                {{ offer.jobName }} - <a href="{{ path('app_joboffers_view', { 'offer': offer.id }) }}">details</a>
+            </li>
+        {% endfor %}
+    </ul>
+    {{ knp_pagination_render(pagination) }}
 {% endblock %}
