@@ -61,10 +61,9 @@ class JobOfferRepository extends ServiceEntityRepository
             ->getQuery();
     }
 
-    /** @return JobOffer[] */
-    public function findWithListForm(?int $maxDaysAgo = null, ?string $searchQuery = null): array
+    public function findAllQuery(): Query
     {
-        return $this->findWithListFormQuery($maxDaysAgo, $searchQuery)->getResult();
+        return $this->createQueryBuilder('o')->getQuery();
     }
 
 //    /**
