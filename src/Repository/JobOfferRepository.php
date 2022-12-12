@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\JobOffer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,8 +40,7 @@ class JobOfferRepository extends ServiceEntityRepository
         }
     }
 
-    /** @return JobOffer[] */
-    public function findWithListForm(?int $maxDaysAgo = null, ?string $searchQuery = null): array
+    public function findWithListFormQuery(?int $maxDaysAgo = null, ?string $searchQuery = null): Query
     {
         $qb = $this->createQueryBuilder('o');
 
@@ -58,8 +58,13 @@ class JobOfferRepository extends ServiceEntityRepository
 
         return $qb
             ->orderBy('o.creationDate', 'DESC')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
+    }
+
+    /** @return JobOffer[] */
+    public function findWithListForm(?int $maxDaysAgo = null, ?string $searchQuery = null): array
+    {
+        return $this->findWithListFormQuery($maxDaysAgo, $searchQuery)->getResult();
     }
 
 //    /**
