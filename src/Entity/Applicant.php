@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ApplicantRepository::class)]
 class Applicant
@@ -25,9 +26,14 @@ class Applicant
     private ?string $surname = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Email]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        exactly: 9,
+        exactMessage: 'Please specify a phone number without the directional prefix'
+    )]
     private ?string $phoneNumber = null;
 
     #[ORM\Column(type: Types::TEXT)]
