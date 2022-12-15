@@ -14,12 +14,15 @@ class ApplyController extends AbstractController
     #[Route('/apply/{offer}', name: 'app_apply')]
     public function index(JobOffer $offer, EntityManagerInterface $em): Response
     {
-        $this->denyAccessUnlessGranted('APPLICANT_CV_EXISTS');
+        $this->denyAccessUnlessGranted(
+            'JOB_OFFER_USER_CAN_APPLY',
+            $offer,
+            'You have already applied there'
+        );
+        $this->denyAccessUnlessGranted('APPLICANT_CV_EXISTS', message: 'Please upload a CV');
 
         /** @var Applicant $user */
         $user = $this->getUser();
-
-        // TODO maybe check if the user can apply...
 
         $offer->addApplicant($user);
 

@@ -10,7 +10,11 @@
     <p>{{ offer.description }}</p>
 
     {% if is_granted('APPLICANT_CV_EXISTS') %}
-        <a href="{{ path('app_apply', { offer: offer.id }) }}">Apply</a>
+        {% if is_granted('JOB_OFFER_USER_HAS_APPLIED', offer) %}
+            <strong>You have already applied there.</strong>
+        {% else %}
+            <a href="{{ path('app_apply', { offer: offer.id }) }}">Apply</a>
+        {% endif %}
     {% else %}
         <strong>Please upload a CV before applying.</strong>
     {% endif %}
