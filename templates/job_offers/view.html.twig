@@ -7,5 +7,10 @@
     <h2>{{ offer.jobName }}</h2>
     <p>Created on: {{ offer.creationDate.format('Y/m/d') }}</p>
     <p>{{ offer.description }}</p>
-    <a href="#">Apply</a>
+
+    {% if is_granted('APPLICANT_CV_EXISTS') %}
+        <a href="#">Apply</a>
+    {% else %}
+        <strong>Please upload a CV before applying.</strong>
+    {% endif %}
 {% endblock %}
