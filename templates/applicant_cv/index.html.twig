@@ -4,7 +4,7 @@
 
 {% block body %}
     <a href="#">Upload CV</a>
-    {% if user.cv %}
+    {% if is_granted('APPLICANT_CV_EXISTS') %}
         <a href="{{ path('app_applicantcv_download', { cv: user.cv.id }) }}">
             See your CV
         </a>

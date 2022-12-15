@@ -25,6 +25,8 @@ class ApplicantCvController extends AbstractController
     #[Route('/cv/{cv}', name: 'app_applicantcv_download')]
     public function download(ApplicantCv $cv, DownloadHandler $downloadHandler): Response
     {
+        $this->denyAccessUnlessGranted('APPLICANT_CV_HAS_ACCESS', $cv);
+
         return $downloadHandler->downloadObject($cv, 'file', forceDownload: false);
     }
 }
