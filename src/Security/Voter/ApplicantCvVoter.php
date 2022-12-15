@@ -15,8 +15,7 @@ class ApplicantCvVoter extends Voter
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return in_array($attribute, [self::APPLICANT_CV_EXISTS, self::APPLICANT_CV_HAS_ACCESS])
-            && $subject instanceof \App\Entity\ApplicantCv;
+        return in_array($attribute, [self::APPLICANT_CV_EXISTS, self::APPLICANT_CV_HAS_ACCESS]);
     }
 
     /** @param ApplicantCv $subject */
