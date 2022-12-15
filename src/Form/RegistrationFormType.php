@@ -41,17 +41,6 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('phoneNumber', TextType::class)
             ->add('address', TextareaType::class)
-//            ->add('cv', VichFileType::class, [
-//                'label' => 'CV file (only PDF allowed)',
-//                'constraints' => [
-//                    new File([
-//                        'mimeTypes' => [
-//                            'application/pdf',
-//                        ],
-//                        'maxSize' => '10M',
-//                    ]),
-//                ],
-//            ])
             ->add('submit', SubmitType::class)
         ;
     }

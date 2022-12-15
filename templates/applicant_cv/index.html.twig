@@ -3,7 +3,7 @@
 {% block title %}Hello ApplicantCvController!{% endblock %}
 
 {% block body %}
-    <a href="#">Upload CV</a>
+    <a href="{{ path('app_applicantcv_upload') }}">Upload CV</a>
     {% if is_granted('APPLICANT_CV_EXISTS') %}
         <a href="{{ path('app_applicantcv_download', { cv: user.cv.id }) }}">
             See your CV
