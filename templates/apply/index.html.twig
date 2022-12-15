@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ApplyController!{% endblock %}
+
+{% block body %}
+<p>
+    You have successfully applied to <strong>{{ offer.jobName }}</strong>
+</p>
+<a href="{{ path('app_joboffers') }}">Go back to all offers</a>
+{% endblock %}
