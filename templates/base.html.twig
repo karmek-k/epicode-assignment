@@ -16,10 +16,10 @@
     <body>
         {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
             <a href="{{ path('app_register') }}">Register</a>
-            <a href="#">Log in</a>
+            <a href="{{ path('app_login') }}">Log in</a>
         {% else %}
             <a href="#">Your CV</a>
-            <a href="#">Log out</a>
+            <a href="{{ path('app_logout') }}">Log out</a>
         {% endif %}
 
         <hr />
