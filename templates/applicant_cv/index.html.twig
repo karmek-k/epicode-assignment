@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ApplicantCvController!{% endblock %}
+
+{% block body %}
+    <a href="#">Upload CV</a>
+    {% if user.cv %}
+        <a href="{{ path('app_applicantcv_download', { cv: user.cv.id }) }}">
+            See your CV
+        </a>
+    {% endif %}
+{% endblock %}
