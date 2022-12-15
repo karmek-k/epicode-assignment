@@ -6,6 +6,7 @@
     <a href="{{ path('app_joboffers') }}">Go back</a>
     <h2>{{ offer.jobName }}</h2>
     <p>Created on: {{ offer.creationDate.format('Y/m/d') }}</p>
+    <p>Applicants: {{ offer.applicants|length }}</p>
     <p>{{ offer.description }}</p>
 
     {% if is_granted('APPLICANT_CV_EXISTS') %}
