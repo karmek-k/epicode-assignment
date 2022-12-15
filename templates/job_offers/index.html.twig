@@ -5,7 +5,7 @@
 {% block body %}
     {{ form(form) }}
 
-    {% if not is_granted('APPLICANT_CV_EXISTS') %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') and not is_granted('APPLICANT_CV_EXISTS') %}
         <p>
             Before applying, <a href="{{ path('app_applicantcv_upload') }}">upload your CV</a>!
         </p>
